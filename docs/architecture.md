@@ -82,4 +82,4 @@ sudo docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Ports}}\t{{.Status}}'
 
 ## 7. 제출 산출물과 관계
 
-이 문서는 아키텍처 설명의 원본이다. **미션의 필수 제출 형식은 `docs/architecture.png` 또는 `docs/architecture.pdf`**이므로, 최종 제출 전 이 구조를 그림 파일로 별도 작성해야 한다. `README.md`, `docs/troubleshooting.md`, `docs/cleanup-checklist.md`도 별도로 작성한다.
+이 문서는 아키텍처 설명의 원본이다. 미션의 필수 제출 형식인 [`docs/architecture.png`](architecture.png)는 이미 작성되어 있으며, [`README.md`](../README.md), [`docs/troubleshooting.md`](troubleshooting.md), [`docs/cleanup-checklist.md`](cleanup-checklist.md)도 작성되었다. 다만 AWS 리소스 정리는 아직 실행하지 않았다.
