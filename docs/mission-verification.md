@@ -29,17 +29,6 @@
 | ③ 트러블슈팅 보고서 | `docs/troubleshooting.md` 또는 PDF; 증상→가설→검증→조치→결과→재발 방지 | [작성된 보고서](troubleshooting.md) · [오류 로그](../evidence/06-troubleshooting/L6-nginx-error-log.png) · 장애 전/중/후 증빙 | ✅ 작성 확인 |
 | ④ 리소스 정리 체크리스트 | `docs/cleanup-checklist.md` 및 실습 종료 후 정리 완료 근거 | [작성된 체크리스트](cleanup-checklist.md); **실제 리소스 삭제·결과 기록은 미완료** | ⚠️ 문서 작성 완료 / 정리 미완료 |
 
-### ② 외부 접속 증빙 상세
-
-- **선택 방식:** (A) 외부 브라우저에서 `http://<퍼블릭IP>` 접속
-- **실제 접속 URL:** `http://3.38.97.202/`
-- **관찰 결과:** 웹페이지 정상 표시 및 HTTP 200 (L3/L7 기록)
-- **증빙:** [L3 외부 HTTP](../evidence/03-ec2-nginx/L3-external-http.png) · [L7 외부 HTTP](../evidence/07-final-verification/L7-external-http.png)
-
-![외부 브라우저 HTTP 접속 검증](../evidence/07-final-verification/L7-external-http.png)
-
-> 접속 URL은 실습 당시 값이다. 향후 리소스 삭제 후에는 실제 접속이 되지 않아도 당시 검증 스크린샷으로 확인한다.
-
 ## 2. 기능 요구사항 검증
 
 미션 원문 **§4 기능 요구 사항**을 빠짐없이 대응한다.
@@ -86,7 +75,11 @@
 
 - 요구: A(외부 HTTP 브라우저) 또는 B(`/health` 200) 중 하나.
 - 선택: **A**, README에 방식 및 IP/URL 기재.
-- 판정: ✅ 확인 — [외부 HTTP 스크린샷](../evidence/07-final-verification/L7-external-http.png) 참조.
+- 판정: ✅ 확인 — [L3 외부 HTTP](../evidence/03-ec2-nginx/L3-external-http.png) 및 [L7 외부 HTTP](../evidence/07-final-verification/L7-external-http.png) 증빙.
+
+![외부 브라우저 HTTP 접속 검증](../evidence/07-final-verification/L7-external-http.png)
+
+> 접속 주소는 실습 당시의 값이며, 리소스 삭제 후에는 접속이 되지 않을 수 있다.
 
 ### 2.6 운영 안정성 / 과금 방지 (§4-6)
 
