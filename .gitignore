@@ -1,0 +1,14 @@
+# AWS credentials and private keys
+.aws/
+.ssh/
+*.pem
+*.key
+.env
+.env.*
+
+# Raw evidence (may contain sensitive information)
+evidence/no_mask/
+
+# Local temporary files
+*.log
+*.txt
