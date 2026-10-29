@@ -79,7 +79,3 @@ sudo docker ps --format 'table {{.Names}}\t{{.Image}}\t{{.Ports}}\t{{.Status}}'
 - 별도 L7 검증에서 EC2, VPC, 보안 그룹, SSH, HTTP/HTTPS, Docker 상태 및 TLS 연결을 점검했다.
 
 관련 증거: `evidence/02-network/`, `03-ec2-nginx/`, `04-docker/`, `05-domain-https/`, `07-final-verification/`.
-
-## 7. 제출 산출물과 관계
-
-이 문서는 아키텍처 설명의 원본이다. 미션의 필수 제출 형식인 [`docs/architecture.png`](architecture.png)는 이미 작성되어 있으며, [`README.md`](../README.md), [`docs/troubleshooting.md`](troubleshooting.md), [`docs/cleanup-checklist.md`](cleanup-checklist.md)도 작성되었다. 다만 AWS 리소스 정리는 아직 실행하지 않았다.
