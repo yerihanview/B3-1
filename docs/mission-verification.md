@@ -29,6 +29,20 @@
 | ③ 트러블슈팅 보고서 | `docs/troubleshooting.md` 또는 PDF; 증상→가설→검증→조치→결과→재발 방지 | [작성된 보고서](troubleshooting.md) · [오류 로그](../evidence/06-troubleshooting/L6-nginx-error-log.png) · 장애 전/중/후 증빙 | ✅ 작성 확인 |
 | ④ 리소스 정리 체크리스트 | `docs/cleanup-checklist.md` 및 실습 종료 후 정리 완료 근거 | [작성된 체크리스트](cleanup-checklist.md); **실제 리소스 삭제·결과 기록은 미완료** | ⚠️ 문서 작성 완료 / 정리 미완료 |
 
+**증빙 스크린샷**
+
+**다이어그램**
+
+![다이어그램](architecture.png)
+
+**외부 브라우저 캡처**
+
+![외부 브라우저 캡처](../evidence/07-final-verification/L7-external-http.png)
+
+**오류 로그**
+
+![오류 로그](../evidence/06-troubleshooting/L6-nginx-error-log.png)
+
 ## 2. 기능 요구사항 검증
 
 미션 원문 **§4 기능 요구 사항**을 빠짐없이 대응한다.
@@ -43,6 +57,32 @@
 | Public Subnet에 `0.0.0.0/0 → IGW` | Subnet은 **VPC Main Route Table을 상속**; 해당 테이블에 활성 기본 경로 | [라우팅 테이블](../evidence/07-final-verification/L7-route-table.png) · [서브넷 라우팅](../evidence/07-final-verification/L7-subnet-routing.png) | ✅ |
 | 인스턴스 인터넷 아웃바운드 | L3에서 외부 HTTP 요청 성공 기록 | [아웃바운드 HTTP](../evidence/03-ec2-nginx/L3-outbound-http.png) | ✅ |
 
+**증빙 스크린샷**
+
+**VPC**
+
+![VPC](../evidence/07-final-verification/L7-vpc.png)
+
+**Subnet**
+
+![Subnet](../evidence/07-final-verification/L7-subnet.png)
+
+**IGW**
+
+![IGW](../evidence/07-final-verification/L7-igw.png)
+
+**라우팅 테이블**
+
+![라우팅 테이블](../evidence/07-final-verification/L7-route-table.png)
+
+**서브넷 라우팅**
+
+![서브넷 라우팅](../evidence/07-final-verification/L7-subnet-routing.png)
+
+**아웃바운드 HTTP**
+
+![아웃바운드 HTTP](../evidence/03-ec2-nginx/L3-outbound-http.png)
+
 ### 2.2 컴퓨트 및 웹 서버 (§4-2)
 
 | 원문 요구사항 | 구축/검증 결과 | 증빙 | 판정 |
@@ -51,6 +91,28 @@
 | SSH 접속 가능 | `ec2-user` SSH 접속 성공 | [SSH 접속](../evidence/07-final-verification/L7-ssh.png) | ✅ |
 | Nginx 설치·실행 | 호스트 Nginx `active`, `enabled` | [서비스 상태](../evidence/07-final-verification/L7-nginx-service.png) | ✅ |
 | 인스턴스 `curl http://localhost`가 200 | 호스트 Nginx 경유 로컬 HTTP 200 | [로컬 프록시 HTTP](../evidence/07-final-verification/L7-nginx-proxy-http.png) | ✅ |
+
+**증빙 스크린샷**
+
+**EC2**
+
+![EC2](../evidence/07-final-verification/L7-ec2.png)
+
+**네트워크**
+
+![네트워크](../evidence/03-ec2-nginx/L3-ec2-network.png)
+
+**SSH 접속**
+
+![SSH 접속](../evidence/07-final-verification/L7-ssh.png)
+
+**서비스 상태**
+
+![서비스 상태](../evidence/07-final-verification/L7-nginx-service.png)
+
+**로컬 프록시 HTTP**
+
+![로컬 프록시 HTTP](../evidence/07-final-verification/L7-nginx-proxy-http.png)
 
 ### 2.3 보안 그룹 (§4-3)
 
@@ -61,6 +123,20 @@
 | SSH 22는 개인 IP 또는 지정 대역 | 특정 공인 IPv4 `/32` 제한 | [SSH 소스 제한](../evidence/07-final-verification/L7-security-group-ssh.png) | ✅ |
 | 전체 포트(0~65535) 공개 금지 | 수집한 SG 규칙에서 전체 공개 없음 | [SG](../evidence/07-final-verification/L7-security-group.png) | ✅ |
 
+**증빙 스크린샷**
+
+**전체 SG**
+
+![전체 SG](../evidence/07-final-verification/L7-security-group.png)
+
+**외부 HTTP**
+
+![외부 HTTP](../evidence/07-final-verification/L7-external-http.png)
+
+**SSH 소스 제한**
+
+![SSH 소스 제한](../evidence/07-final-verification/L7-security-group-ssh.png)
+
 ### 2.4 IAM 최소권한 (§4-4)
 
 | 원문 요구사항 | 확인 결과 | 증빙 | 판정 |
@@ -68,6 +144,12 @@
 | 실습 IAM 사용자/Role 사용 | `b3-1-operator` 인증·사용 기록 | [CLI 신원](../evidence/01-account-iam/L1-cli-identity.png) · [L1 요약](../evidence/01-account-iam/L1-summary.md) | ✅ |
 | 실습 범위(EC2/VPC/SG)에 필요한 권한으로 제한 | 콘솔에서 `B3-1-EC2-VPC-Policy`의 두 Statement를 확인: `ReadEC2Resources`(`ec2:Describe*`)와 `ManageB31Infrastructure`(미션 관련 VPC·Subnet·IGW·Route Table·SG·EC2·키페어·태그·EBS 작업 열거). 둘 모두 `aws:RequestedRegion=ap-northeast-2`; `Resource:*`이므로 개별 리소스 단위 제한은 아님 | [L1 구성 기록](../evidence/01-account-iam/L1-summary.md) · 이번 최종 검토에서 확인한 콘솔 정책 JSON(추후 스크린샷 보관 권장) | ✅ 미션 기준 확인 |
 | `AdministratorAccess` 미부여 | IAM 사용자 Permissions 화면에서 연결 정책 3개(`B3-1-EC2-VPC-Policy`, `IAMUserChangePassword`, `SignInLocalDevelopmentAccess`) 확인, `AdministratorAccess`는 목록에 없음 | [L1 요약](../evidence/01-account-iam/L1-summary.md) · 이번 검토에 제시된 콘솔 화면(저장소 증빙 파일로는 아직 확인되지 않음) | ✅ 연결 정책 목록 기준 확인 |
+
+**증빙 스크린샷**
+
+**CLI 신원**
+
+![CLI 신원](../evidence/01-account-iam/L1-cli-identity.png)
 
 > **판정 범위:** 이번 세션의 IAM 콘솔 화면으로 연결 정책 3개와 `AdministratorAccess` 부재를 확인했고, 사용자가 제공한 `B3-1-EC2-VPC-Policy`의 두 Statement를 대조했다. 정책은 작업별 열거 및 서울 리전 조건을 적용하므로 **B3-1 미션의 최소권한 요구 취지에 부합**한다. 다만 `Resource: "*"`로 개별 리소스는 제한하지 않으며, 로그인·비밀번호 변경용 나머지 AWS 관리형 정책의 세부 권한, 권한 경계·SCP 등을 포함한 **전체 유효 권한 감사는 수행하지 않았다**. `AccessDenied`는 특정 작업의 거부만 입증한다. 이번 대화에서 확인한 화면/JSON은 저장소의 신규 이미지 증빙으로 업로드되었다고 간주하지 않는다.
 
@@ -99,6 +181,24 @@ L6 기록과 작성된 [트러블슈팅 보고서](troubleshooting.md)에서 다
 | 복구·재검증 | 백업 설정 복원, 문법 검사·reload, HTTP/HTTPS 200/200 | [복구 화면](../evidence/06-troubleshooting/L6-after-recovery.png) |
 | 재발 방지 | `proxy_pass`와 실제 Docker 포트 매핑 대조, 설정 테스트 및 변경 후 접속 확인 절차 문서화 | [보고서 7절](troubleshooting.md#7-재발-방지) |
 
+**증빙 스크린샷**
+
+**정상 화면**
+
+![정상 화면](../evidence/06-troubleshooting/L6-before-failure.png)
+
+**502 오류**
+
+![502 오류](../evidence/06-troubleshooting/L6-failure-502.png)
+
+**Nginx 오류 로그**
+
+![Nginx 오류 로그](../evidence/06-troubleshooting/L6-nginx-error-log.png)
+
+**복구 화면**
+
+![복구 화면](../evidence/06-troubleshooting/L6-after-recovery.png)
+
 ## 4. 보너스 과제 검증 (§5)
 
 | 보너스 | 요구조건 / 실제 결과 | 증빙 | 판정 |
@@ -106,9 +206,33 @@ L6 기록과 작성된 [트러블슈팅 보고서](troubleshooting.md)에서 다
 | ① HTTPS | DuckDNS 도메인 연결, Let's Encrypt 인증서, TLS 검증·외부 HTTPS 성공 | [인증서](../evidence/05-domain-https/L5-certificate-details.png) · [TLS 검증](../evidence/07-final-verification/L7-https-tls-1.png) · [외부 HTTPS](../evidence/07-final-verification/L7-external-https.png) | ✅ ➕ |
 | ② Docker 배포 | EC2 Docker, `nginx:stable`, 컨테이너 `b3-1-nginx` Up; `127.0.0.1:8080 → 80/tcp`; 로컬 HTTP 200, 외부 HTTP 접속 | [docker ps](../evidence/07-final-verification/L7-docker-ps.png) · [컨테이너 HTTP](../evidence/07-final-verification/L7-docker-http.png) · [외부 HTTP](../evidence/04-docker/L4-external-http.png) | ✅ ➕ |
 
-**Docker 실행 방식:** EC2에서 `nginx:stable` 컨테이너 실행 → 호스트의 `127.0.0.1:8080`에만 바인딩 → 호스트 Nginx가 HTTP/HTTPS 요청을 역방향 프록시. [README의 이미지/실행방식/포트/증빙 명시](../README.md#3-docker-배포-보너스).
+**증빙 스크린샷**
 
-![Docker 컨테이너 상태 및 포트 매핑](../evidence/07-final-verification/L7-docker-ps.png)
+**인증서**
+
+![인증서](../evidence/05-domain-https/L5-certificate-details.png)
+
+**TLS 검증**
+
+![TLS 검증](../evidence/07-final-verification/L7-https-tls-1.png)
+
+**외부 HTTPS**
+
+![외부 HTTPS](../evidence/07-final-verification/L7-external-https.png)
+
+**docker ps**
+
+![docker ps](../evidence/07-final-verification/L7-docker-ps.png)
+
+**컨테이너 HTTP**
+
+![컨테이너 HTTP](../evidence/07-final-verification/L7-docker-http.png)
+
+**외부 HTTP**
+
+![외부 HTTP](../evidence/04-docker/L4-external-http.png)
+
+**Docker 실행 방식:** EC2에서 `nginx:stable` 컨테이너 실행 → 호스트의 `127.0.0.1:8080`에만 바인딩 → 호스트 Nginx가 HTTP/HTTPS 요청을 역방향 프록시. [README의 이미지/실행방식/포트/증빙 명시](../README.md#3-docker-배포-보너스).
 
 ## 5. 제약조건 및 학습 목표 확인
 
