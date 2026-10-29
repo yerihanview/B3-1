@@ -61,7 +61,7 @@ sudo nginx -T 2>&1 | grep -E 'server_name|listen |proxy_pass'
 
 ## 4. 접근 제어 및 운영 검증
 
-- IAM 사용자 `b3-1-operator`를 사용하여 실습을 진행했다. 허용된 EC2 관련 조회 및 IAM 접근 거부 사례를 증빙했다. **사용자에게 부여된 모든 정책의 상세 범위까지 검증했다는 뜻은 아니다.**
+- IAM 사용자 `b3-1-operator`를 사용하여 실습을 진행했다. 콘솔에서 연결된 정책 3개(`B3-1-EC2-VPC-Policy`, `IAMUserChangePassword`, `SignInLocalDevelopmentAccess`)와 `AdministratorAccess` 미연결을 확인했다. 실습용 정책의 두 Statement는 EC2/VPC 관련 작업별 권한과 서울 리전 조건을 설정하여 **미션 수준의 최소권한 취지에 부합**한다. 이는 계정의 모든 유효 권한을 감사했다는 뜻은 아니다.
 - SSH는 개인 IP로 소스를 제한하고, HTTP/HTTPS 포트만 외부에 공개했다.
 - 외부/내부 HTTP 통신, 네트워크 경로, TLS 인증서, Nginx, Docker 실행 상태를 단계별로 확인했다.
 - 502 Bad Gateway 장애를 재현한 후 Nginx 오류 로그를 근거로 원인을 분석하고 설정을 복구했다.
@@ -74,8 +74,8 @@ sudo nginx -T 2>&1 | grep -E 'server_name|listen |proxy_pass'
 |---|---|---|
 | 아키텍처 다이어그램 (PNG) | [`docs/architecture.png`](docs/architecture.png) | 작성 완료 |
 | 외부 접속 검증 (방식 A) | [`evidence/03-ec2-nginx/L3-external-http.png`](evidence/03-ec2-nginx/L3-external-http.png) | 검증 완료 |
-| 트러블슈팅 보고서 | `docs/troubleshooting.md` | 작성 예정 |
-| 리소스 정리 체크리스트 | `docs/cleanup-checklist.md` | 작성 및 실제 정리 확인 예정 |
+| 트러블슈팅 보고서 | [`docs/troubleshooting.md`](docs/troubleshooting.md) | 작성 완료 |
+| 리소스 정리 체크리스트 | [`docs/cleanup-checklist.md`](docs/cleanup-checklist.md) | 문서 작성 완료 / 리소스 삭제 미완료 |
 
 **주의:** 이 README 작성 시점에는 AWS 실습 리소스 삭제를 완료했다고 확인하지 않았다. 실습 종료 시 과금 위험을 줄이기 위해 EC2, EBS, Elastic IP(할당한 경우), IGW, VPC 및 관련 리소스를 점검·정리하고 삭제 증거를 남겨야 한다.
 
@@ -87,8 +87,9 @@ B3-1/
 ├── docs/
 │   ├── architecture.md
 │   ├── architecture.png
-│   ├── troubleshooting.md       # 예정
-│   └── cleanup-checklist.md     # 예정
+│   ├── mission-verification.md  # 요구사항별 검증
+│   ├── troubleshooting.md       # 작성 완료
+│   └── cleanup-checklist.md     # 작성 완료, 정리 실행 전
 ├── evidence/
 │   ├── 01-account-iam/          # L0~L1 비용·계정·IAM
 │   ├── 02-network/              # L2 VPC·Subnet·IGW·라우팅
