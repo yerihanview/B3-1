@@ -20,7 +20,6 @@
 
 ![장애 전 정상 접속 증빙](../evidence/06-troubleshooting/L6-before-failure.png)
 
-[정상 상태 스크린샷 원본 보기](../evidence/06-troubleshooting/L6-before-failure.png)
 
 ## 2. 증상 — HTTP 502 Bad Gateway
 
@@ -36,7 +35,6 @@ proxy_pass http://127.0.0.1:8081;
 
 ![502 장애 화면](../evidence/06-troubleshooting/L6-failure-502.png)
 
-[502 장애 스크린샷 원본 보기](../evidence/06-troubleshooting/L6-failure-502.png)
 
 ## 3. 가설
 
@@ -56,7 +54,6 @@ connect() failed (111: Connection refused) while connecting to upstream
 
 ![Nginx 오류 로그 증빙](../evidence/06-troubleshooting/L6-nginx-error-log.png)
 
-[오류 로그 스크린샷 원본 보기](../evidence/06-troubleshooting/L6-nginx-error-log.png)
 
 확인에 사용한 핵심 명령:
 
@@ -96,7 +93,6 @@ sudo systemctl reload nginx   # 정상 설정 반영
 
 ![복구 후 정상 응답 증빙](../evidence/06-troubleshooting/L6-after-recovery.png)
 
-[복구 후 스크린샷 원본 보기](../evidence/06-troubleshooting/L6-after-recovery.png)
 
 | 검증 항목 | 장애 중 | 복구 후 |
 |---|---|---|
@@ -113,15 +109,6 @@ sudo systemctl reload nginx   # 정상 설정 반영
 4. **변경 직후 양쪽 프로토콜 확인:** HTTP와 HTTPS 각각의 응답 코드 및 로그를 점검한다.
 5. **502 발생 시 점검 순서 통일:** `Nginx 오류 로그 → proxy_pass → Docker 포트 매핑 → 백엔드 실행 상태` 순으로 확인한다.
 
-## 8. 증빙 인덱스
-
-| 증빙 | 보여 주는 사실 | 파일 |
-|---|---|---|
-| E1 | 장애 전 정상 상태 | [`L6-before-failure.png`](../evidence/06-troubleshooting/L6-before-failure.png) |
-| E2 | 502 장애 재현 | [`L6-failure-502.png`](../evidence/06-troubleshooting/L6-failure-502.png) |
-| E3 | Nginx 오류 로그의 연결 거부 | [`L6-nginx-error-log.png`](../evidence/06-troubleshooting/L6-nginx-error-log.png) |
-| E4 | 설정 복원 후 서비스 정상화 | [`L6-after-recovery.png`](../evidence/06-troubleshooting/L6-after-recovery.png) |
-
 ---
 
-**판정:** 네 가지 증빙과 확인된 설정·검증 결과를 근거로, 미션이 요구하는 트러블슈팅 최소 1건의 **증상 → 가설 → 검증 → 조치 → 결과 → 재발방지** 기록을 충족한다. 스크린샷의 세부 내용은 로컬 프로젝트의 해당 이미지와 대조하여 최종 검토한다.
+**판정:** 네 가지 증빙과 확인된 설정·검증 결과를 근거로, 미션이 요구하는 트러블슈팅 최소 1건의 **증상 → 가설 → 검증 → 조치 → 결과 → 재발방지** 기록을 충족한다. 네 가지 스크린샷은 각 단계에 직접 표시되어 있다.
